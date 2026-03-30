@@ -17,5 +17,5 @@ def chat(query):
         return {"response": response} 
 
     except Exception as e: 
-        logger.error(f"API Error: {e}") 
+        logger.error(f"Error : {e}") 
         raise HTTPException(status_code=500,detail=str(e))

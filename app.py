@@ -2,8 +2,12 @@ import streamlit as st
 import requests
 import time
 import json
+import os
 
 st.set_page_config(page_title="AI Chatbot", page_icon="🤖", layout="wide")
+
+# Keep API URL
+API_URL = os.getenv("API_URL", "http://127.0.0.1:8005/chat")
 
 # Custom CSS
 st.markdown("""
@@ -16,11 +20,9 @@ st.markdown("""
 
 st.title("🤖 AI Chatbot")
 
-
 # Sidebar
 with st.sidebar:
     st.header("⚙️ Settings")
-    api_url = st.text_input("API URL", "http://127.0.0.1:8005/chat")
     
     if st.button("🧹 Clear Chat"):
         st.session_state.messages = []
@@ -39,8 +41,7 @@ with st.sidebar:
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-
-# Typing animation function
+# Typing animation
 def type_writer(text, speed=0.02):
     placeholder = st.empty()
     typed_text = ""
@@ -68,7 +69,7 @@ if user_input:
 
     with st.spinner("Thinking... 🤔"):
         try:
-            response = requests.post(api_url, params={"query": user_input})
+            response = requests.post(API_URL, params={"query": user_input})
             if response.status_code == 200:
                 bot_reply = response.json().get("response", "No response")
             else:

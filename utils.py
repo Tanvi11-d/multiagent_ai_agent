@@ -52,6 +52,7 @@ def run_agent(query: list):
     try: 
         result = agent.invoke({ "messages": query }) 
         reply = result["messages"][-1].content 
+        print("Agent response:", reply)
         logger.info("Agent response generated") 
         return reply 
     except Exception as e: 

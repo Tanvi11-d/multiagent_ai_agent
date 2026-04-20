@@ -1,3 +1,4 @@
-.env
 __pycache__/
 composio/
+config.bat
+node_modules
